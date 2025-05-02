@@ -26,7 +26,6 @@ class FeedbackController {
   @Get(':id')
   @UseGuards(AuthGuard('jwt'))
   async getFeedbackById(@Param('id') id: string) {
-    console.log(id)
     return await this.getFeedbackCommandById.execute(id);
   }
 }
