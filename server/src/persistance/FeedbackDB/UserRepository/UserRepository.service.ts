@@ -21,7 +21,7 @@ export class UserRepository implements IUserRepository {
       password: user.password,
     };
   }
-  async create(user: UserEntity): Promise<UserEntity> {
+  async create(user: UserEntity): Promise<Partial<UserEntity>> {
     const created = await this.model.create({
       email: user.email,
       password: user.password,
@@ -30,7 +30,6 @@ export class UserRepository implements IUserRepository {
     return {
       id: created._id.toString(),
       email: created.email,
-      password: created.password,
     };
   }
 }

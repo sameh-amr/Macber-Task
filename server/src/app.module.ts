@@ -15,12 +15,9 @@ import { UserModule } from './application/User/UserModule';
     DatabaseModule,
     FeedbackModule,
     UserModule,
-    JwtModule.registerAsync({
-      inject: [ConfigService],
-      useFactory: async (configService: ConfigService) => ({
-        secret: configService.get<string>('JWT_SECRET'),
-        signOptions: { expiresIn: '1d' },
-      }),
+    JwtModule.register({
+      secret: process.env.JWT_SECRET || 'your-default-secret', 
+      signOptions: { expiresIn: '60m' },
     }),
   ],
 

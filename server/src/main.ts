@@ -5,8 +5,7 @@ import { DatabaseService } from './persistance/DBConfig/DbConfig.service';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const databaseService = app.get(DatabaseService);
-  await databaseService.checkConnection();
   await app.listen(3000);
-
+  await databaseService.checkConnection();
 }
 bootstrap();
