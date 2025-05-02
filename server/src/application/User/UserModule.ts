@@ -5,7 +5,7 @@ import LoginUserCommand from './LoginUser/LoginUserCommand.service';
 import { JwtModule } from '@nestjs/jwt';
 RegisterUserCommand
 @Module({
-  imports: [UserRepositoryModule,JwtModule],
+  imports: [UserRepositoryModule],
   exports: [RegisterUserCommand,LoginUserCommand],
   providers: [RegisterUserCommand,LoginUserCommand],
 })

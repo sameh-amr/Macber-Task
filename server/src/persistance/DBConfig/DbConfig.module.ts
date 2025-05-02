@@ -1,10 +1,10 @@
-import { Module } from '@nestjs/common';
+import { Global, Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { DatabaseService } from './DbConfig.service';
-import { Feedback,FeedbackSchema } from '../Schemas/feedback.schema';
-import { User,UserSchema } from '../Schemas/user.schema';
-
+import { Feedback, FeedbackSchema } from '../Schemas/feedback.schema';
+import { User, UserSchema } from '../Schemas/user.schema';
+@Global()
 @Module({
   imports: [
     MongooseModule.forRootAsync({
@@ -16,13 +16,11 @@ import { User,UserSchema } from '../Schemas/user.schema';
     }),
 
     MongooseModule.forFeature([
-        { name: Feedback.name, schema: FeedbackSchema },
-        { name: User.name, schema: UserSchema },
-      ]),
+      { name: Feedback.name, schema: FeedbackSchema },
+      { name: User.name, schema: UserSchema },
+    ]),
   ],
   providers: [DatabaseService],
-  exports: [
-    MongooseModule,
-  ],
+  exports: [MongooseModule],
 })
-export class    DatabaseModule {}
+export class DatabaseModule {}

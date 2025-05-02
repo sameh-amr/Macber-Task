@@ -5,20 +5,18 @@ import { DatabaseModule } from './persistance/DBConfig/DbConfig.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { FeedbackModule } from './application/Feedback/FeedbackModule';
 import MainController from './api';
-import { JwtStrategy } from './api/Auth/jwt.strategy';
+import { JwtStrategy } from './persistance/strategy/jwt.strategy';
 import { JwtModule } from '@nestjs/jwt';
 import { UserModule } from './application/User/UserModule';
+import { JwtConfigModule } from './persistance/strategy/jwtconfig.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
+    JwtConfigModule,
     DatabaseModule,
     FeedbackModule,
     UserModule,
-    JwtModule.register({
-      secret: process.env.JWT_SECRET || 'your-default-secret', 
-      signOptions: { expiresIn: '60m' },
-    }),
   ],
 
   controllers: MainController,
