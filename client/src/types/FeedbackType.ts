@@ -1,4 +1,4 @@
-export interface FeedbackDto {
+export interface FeedbackType {
     id?: string;
     name: string;
     email: string;
