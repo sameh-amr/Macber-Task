@@ -1,13 +1,30 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { FeedbackEntity } from 'src/domain/feedback.entity';
 import InsertFeedbackCommand from 'src/application/Feedback/InsertFeedback/InsertFeedbackCommand.service';
+import GetAllFeedbacksCommand from 'src/application/Feedback/GetAllFeedbacks/GetAllFeedbacksCommand.service';
+import GetFeedbackByIdCommand from 'src/application/Feedback/GetFeedbackById/GetFeedbackByIdCommand.service';
 
-@Controller('api/Feedback')
+@Controller('api/feedbacks')
 class FeedbackController {
-  constructor(private insertFeedbackCommand: InsertFeedbackCommand) {}
-  @Post('')
+  constructor(
+    private insertFeedbackCommand: InsertFeedbackCommand,
+    private getAllFeedbacksCommand: GetAllFeedbacksCommand,
+    private getFeedbackCommandById: GetFeedbackByIdCommand,
+  ) {}
+  @Post()
   async insertNewFeedback(@Body() feedbackItem: FeedbackEntity) {
     return await this.insertFeedbackCommand.execute(feedbackItem);
+  }
+
+  @Get()
+  async getAllFeedbacks() {
+    return await this.getAllFeedbacksCommand.execute();
+  }
+
+  @Get(':id')
+  async getFeedbackById(@Param('id') id: string) {
+    console.log(id)
+    return await this.getFeedbackCommandById.execute(id);
   }
 }
 

@@ -10,6 +10,7 @@ export class FeedbackRepository implements IFeedbackRepository {
     @InjectModel(Feedback.name)
     private readonly model: Model<Feedback>,
   ) {}
+
   async create(entity: Partial<FeedbackEntity>): Promise<FeedbackEntity> {
     const created = await this.model.create({
       name: entity.name,
@@ -26,4 +27,29 @@ export class FeedbackRepository implements IFeedbackRepository {
       rating: created.rating,
     };
   }
+
+  async getAllFeedbacks(): Promise<FeedbackEntity[]> {
+    const feedbacks = await this.model.find().exec();
+    return feedbacks.map(feedback => ({
+      id: feedback._id.toString(),
+      name: feedback.name,
+      email: feedback.email,
+      message: feedback.message,
+      rating: feedback.rating,
+    }));
+  }
+  async findFeedbackById(id: string): Promise<Partial<FeedbackEntity>> {
+    const feedback = await this.model.findById(id).exec();
+    if (!feedback) {
+      throw new Error('Feedback not found');
+    }
+    return {
+      id: feedback._id.toString(),
+      name: feedback.name,
+      email: feedback.email,
+      message: feedback.message,
+      rating: feedback.rating,
+    };
+  }
+  
 }
