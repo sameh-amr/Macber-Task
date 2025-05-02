@@ -10,6 +10,17 @@ export class UserRepository implements IUserRepository {
     @InjectModel(User.name)
     private readonly model: Model<User>,
   ) {}
+  async findByEmail(email: string): Promise<UserEntity | null> {
+    const user = await this.model.findOne({ email }).exec();
+
+    if (!user) return null;
+
+    return {
+      id: user._id.toString(),
+      email: user.email,
+      password: user.password,
+    };
+  }
   async create(user: UserEntity): Promise<UserEntity> {
     const created = await this.model.create({
       email: user.email,

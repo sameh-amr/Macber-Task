@@ -1,3 +1,3 @@
 import FeedbackController from './Feedback/Feeback.controller';
-
-export default [FeedbackController];
+import  AuthController  from './Auth/auth.controller';
+export default [FeedbackController, AuthController];
