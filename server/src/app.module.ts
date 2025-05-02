@@ -4,14 +4,15 @@ import { AppService } from './app.service';
 import { DatabaseModule } from './persistance/DBConfig/DbConfig.module';
 import { ConfigModule } from '@nestjs/config';
 import { FeedbackModule } from './application/Feedback/FeedbackModule';
+import MainController from './api';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true }), // Load .env
+    ConfigModule.forRoot({ isGlobal: true }),
     DatabaseModule,
-    FeedbackModule
+    FeedbackModule,
   ],
-  controllers: [AppController],
+  controllers: MainController,
   providers: [AppService],
 })
 export class AppModule {}
