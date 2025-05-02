@@ -25,4 +25,4 @@ import { User,UserSchema } from '../Schemas/user.schema';
     MongooseModule,
   ],
 })
-export class DatabaseModule {}
+export class    DatabaseModule {}
