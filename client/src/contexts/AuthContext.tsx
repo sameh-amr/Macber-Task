@@ -3,7 +3,7 @@ import { AuthContextType } from '../types/AuthContextType';
 import { login as apiLogin } from '../services/auth.service';
 const AuthContext = createContext<AuthContextType | null>(null);
 
-export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+export const AuthProvider = ({ children }: { children: any }) => {
   const [token, setToken] = useState<string | null>(localStorage.getItem('token'));
 
   const login = async (email: string, password: string) => {

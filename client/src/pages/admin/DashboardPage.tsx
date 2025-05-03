@@ -3,7 +3,9 @@ import { fetchFeedbacks, getFeedbackById } from '../../services/feedback.service
 import { useAuth } from '../../contexts/AuthContext';
 import { FeedbackType } from '../../types/FeedbackType';
 import { toast } from 'react-toastify';
-
+import { MobileFeedbackCard } from '../../components/dashboards/MobileFeedbackCard';
+import { TableHeader } from '../../components/common/TableHeader';
+import { TableRow } from '../../components/common/TableRow';
 export const DashboardPage = () => {
   const { token } = useAuth();
   const [feedbacks, setFeedbacks] = useState<FeedbackType[]>([]);
@@ -62,7 +64,6 @@ export const DashboardPage = () => {
     <div className="min-h-screen bg-gray-100 p-4 md:p-8">
       <div className="max-w-7xl mx-auto">
         <div className="bg-white rounded-xl shadow-sm overflow-hidden">
-          {/* Header with Search */}
           <div className="px-4 py-5 sm:px-6 border-b border-gray-200">
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
               <div>
@@ -104,7 +105,6 @@ export const DashboardPage = () => {
             </div>
           </div>
 
-          {/* Loading state */}
           {isLoading ? (
             <div className="p-8 text-center">
               <div className="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500"></div>
@@ -131,7 +131,6 @@ export const DashboardPage = () => {
                 </tbody>
               </table>
 
-              {/* Mobile Cards */}
               <div className="md:hidden space-y-4 p-4">
                 {feedbacks.length > 0 ? (
                   feedbacks.map((feedback) => (
@@ -151,66 +150,8 @@ export const DashboardPage = () => {
   );
 };
 
-// Reusable Components
-const TableHeader = ({ children }: { children: React.ReactNode }) => (
-  <th
-    scope="col"
-    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-  >
-    {children}
-  </th>
-);
 
-const TableRow = ({ feedback }: { feedback: FeedbackType }) => (
-  <tr className="hover:bg-gray-50 transition-colors">
-    <td className="px-6 py-4 whitespace-nowrap">
-      <div className="text-sm font-medium text-gray-900">{feedback.id}</div>
-    </td>
-    <td className="px-6 py-4 whitespace-nowrap">
-      <div className="text-sm font-medium text-gray-900">{feedback.name}</div>
-    </td>
-    <td className="px-6 py-4 whitespace-nowrap">
-      <div className="text-sm text-gray-500">{feedback.email}</div>
-    </td>
-    <td className="px-6 py-4 whitespace-nowrap">
-      <div className="flex items-center">
-        <span className="text-sm text-gray-900 mr-1">{feedback.rating}</span>
-        <StarRating rating={feedback.rating} />
-      </div>
-    </td>
-  </tr>
-);
 
-const MobileFeedbackCard = ({ feedback }: { feedback: FeedbackType }) => (
-  <div className="bg-white rounded-lg shadow p-4 border border-gray-100">
-    <div className="flex justify-between items-start">
-      <div>
-        <h3 className="text-sm font-medium text-gray-900">{feedback.name}</h3>
-        <p className="text-xs text-gray-500 mt-1">ID: {feedback.id}</p>
-        <p className="text-xs text-gray-500 mt-1">{feedback.email}</p>
-      </div>
-      <div className="flex items-center">
-        <span className="text-xs font-medium mr-1">{feedback.rating}</span>
-        <StarRating rating={feedback.rating} size="small" />
-      </div>
-    </div>
-    <p className="text-sm text-gray-700 mt-2 line-clamp-2">{feedback.message}</p>
-  </div>
-);
 
-const StarRating = ({
-  rating,
-  size = "default",
-}: {
-  rating: number;
-  size?: "default" | "small";
-}) => {
-  const starSize = size === "small" ? "text-sm" : "text-base";
-  return (
-    <div className={`flex ${starSize} text-yellow-400`}>
-      {[...Array(5)].map((_, i) => (
-        <span key={i}>{i < rating ? "★" : "☆"}</span>
-      ))}
-    </div>
-  );
-};
+
+
