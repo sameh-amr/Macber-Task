@@ -4,6 +4,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { DatabaseService } from './DbConfig.service';
 import { Feedback, FeedbackSchema } from '../Schemas/feedback.schema';
 import { User, UserSchema } from '../Schemas/user.schema';
+import { MigrationService } from '../Migrations/migrations.service';
 @Global()
 @Module({
   imports: [
@@ -20,7 +21,7 @@ import { User, UserSchema } from '../Schemas/user.schema';
       { name: User.name, schema: UserSchema },
     ]),
   ],
-  providers: [DatabaseService],
+  providers: [DatabaseService,MigrationService],
   exports: [MongooseModule],
 })
 export class DatabaseModule {}
