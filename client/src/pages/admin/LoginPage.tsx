@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Input } from '../../components/common/Input';
 import { useAuth } from '../../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 export const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -13,9 +14,10 @@ export const LoginPage = () => {
     e.preventDefault();
     try {
       await login(email, password);
+      toast.success('Login Succeeded');
       navigate('/admin/dashboard');
     } catch (error) {
-      alert('Login failed. Check credentials.');
+      toast.error('Login Failed please check the credentials');
     }
   };
 
