@@ -1,4 +1,4 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, HttpCode, HttpStatus } from '@nestjs/common';
 import LoginUserCommand from 'src/application/User/LoginUser/LoginUserCommand.service';
 import RegisterUserCommand from 'src/application/User/RegisterUser/RegisterUserCommand.service';
 
@@ -11,6 +11,7 @@ class AuthController {
     return this.registerUserCommand.execute(body.email, body.password);
   }
   @Post('login')
+  @HttpCode(HttpStatus.OK) 
   async login(@Body() body: { email: string; password: string }) {
     return this.loginUserCommand.execute(body.email, body.password);
   }
